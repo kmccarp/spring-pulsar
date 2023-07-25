@@ -58,7 +58,7 @@ import org.springframework.pulsar.listener.Proto.Person;
  */
 class DefaultSchemaResolverTests {
 
-	private DefaultSchemaResolver resolver = new DefaultSchemaResolver();
+	private final DefaultSchemaResolver resolver = new DefaultSchemaResolver();
 
 	@Nested
 	class CustomSchemaMappingsAPI {

@@ -50,7 +50,7 @@ publishing {
 			pom.withXml {
 				Node pomNode = asNode()
 				pomNode.dependencies.'*'.findAll() {
-					it.artifactId.text() == 'caffeine'
+					'caffeine'.equals(it.artifactId.text())
 				}.each() {
 					it.parent().remove(it)
 				}

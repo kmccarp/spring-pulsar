@@ -107,7 +107,7 @@ public class DefaultReactivePulsarSenderFactory<T> implements ReactivePulsarSend
 			sender.cache(this.reactiveMessageSenderCache);
 		}
 		if (!CollectionUtils.isEmpty(customizers)) {
-			customizers.forEach((c) -> c.customize(sender));
+			customizers.forEach(c -> c.customize(sender));
 		}
 		// make sure the customizer do not override the topic
 		sender.topic(resolvedTopic);

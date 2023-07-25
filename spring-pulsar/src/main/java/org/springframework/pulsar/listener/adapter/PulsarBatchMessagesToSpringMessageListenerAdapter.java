@@ -120,12 +120,7 @@ public class PulsarBatchMessagesToSpringMessageListenerAdapter<V> extends Abstra
 	}
 
 	protected void invoke(Object records, Consumer<V> consumer, Message<?> message, Acknowledgement acknowledgement) {
-		try {
-			invokeHandler(message, records, consumer, acknowledgement);
-		}
-		catch (Exception e) {
-			throw e;
-		}
+		invokeHandler(message, records, consumer, acknowledgement);
 	}
 
 }

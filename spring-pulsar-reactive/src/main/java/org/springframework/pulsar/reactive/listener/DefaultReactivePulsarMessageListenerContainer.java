@@ -144,7 +144,7 @@ public non-sealed class DefaultReactivePulsarMessageListenerContainer<T>
 
 	@SuppressWarnings({ "unchecked" })
 	private ReactiveMessagePipeline startPipeline(ReactivePulsarContainerProperties<T> containerProperties) {
-		ReactiveMessageConsumerBuilderCustomizer<T> customizer = (builder) -> {
+		ReactiveMessageConsumerBuilderCustomizer<T> customizer = builder -> {
 			if (containerProperties.getSubscriptionType() != null) {
 				builder.subscriptionType(containerProperties.getSubscriptionType());
 			}

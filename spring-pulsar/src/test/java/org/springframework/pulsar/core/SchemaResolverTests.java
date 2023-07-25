@@ -37,7 +37,7 @@ import org.springframework.lang.Nullable;
  */
 class SchemaResolverTests {
 
-	private TestSchemaResolver resolver = new TestSchemaResolver();
+	private final TestSchemaResolver resolver = new TestSchemaResolver();
 
 	@Nested
 	class ResolveBySchemaTypeAndSchemaInfo {

@@ -198,7 +198,7 @@ public class GenericReaderEndpointRegistry<C extends PulsarMessageReaderContaine
 	public void stop(Runnable callback) {
 		this.running = false;
 		Collection<C> readerContainersToStop = getReaderContainers();
-		if (readerContainersToStop.size() > 0) {
+		if (!readerContainersToStop.isEmpty()) {
 			GenericReaderEndpointRegistry.AggregatingCallback aggregatingCallback = new GenericReaderEndpointRegistry.AggregatingCallback(
 					readerContainersToStop.size(), callback);
 			for (C readerContainer : readerContainersToStop) {

@@ -61,7 +61,7 @@ public class PulsarAdministration
 	 * @param serviceHttpUrl the admin http service url
 	 */
 	public PulsarAdministration(String serviceHttpUrl) {
-		this((adminBuilder) -> adminBuilder.serviceHttpUrl(serviceHttpUrl));
+		this(adminBuilder -> adminBuilder.serviceHttpUrl(serviceHttpUrl));
 	}
 
 	/**

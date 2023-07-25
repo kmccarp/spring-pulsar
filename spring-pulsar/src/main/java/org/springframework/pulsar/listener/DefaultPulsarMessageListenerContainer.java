@@ -396,7 +396,7 @@ public class DefaultPulsarMessageListenerContainer<T> extends AbstractPulsarMess
 						messages.forEach(messageList::add);
 					}
 					try {
-						if (messageList != null && messageList.size() > 0) {
+						if (messageList != null && !messageList.isEmpty()) {
 							if (this.batchMessageListener instanceof PulsarBatchAcknowledgingMessageListener) {
 								this.batchMessageListener.received(this.consumer, messageList,
 										this.ackMode.equals(AckMode.MANUAL)
@@ -669,7 +669,7 @@ public class DefaultPulsarMessageListenerContainer<T> extends AbstractPulsarMess
 
 	}
 
-	private static abstract class AbstractAcknowledgement implements Acknowledgement {
+	private abstract static class AbstractAcknowledgement implements Acknowledgement {
 
 		private static final LogAccessor logger = new LogAccessor(AbstractAcknowledgement.class);
 

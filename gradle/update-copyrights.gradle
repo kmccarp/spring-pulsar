@@ -21,7 +21,7 @@ project.afterEvaluate {
 	 */
 	subprojects { subproject ->
 		task updateCopyrights {
-			if (findProperty("all") == "true") {
+			if ("true".equals(findProperty("all"))) {
 				inputs.files(fileTree("${projectDir}").matching {
 					include "**/*.java"
 				}.files)

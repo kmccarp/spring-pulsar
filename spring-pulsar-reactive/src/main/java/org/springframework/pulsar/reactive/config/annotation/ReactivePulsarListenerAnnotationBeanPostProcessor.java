@@ -100,7 +100,7 @@ public class ReactivePulsarListenerAnnotationBeanPostProcessor<V> extends Abstra
 
 	private ReactivePulsarListenerEndpointRegistry<?> endpointRegistry;
 
-	private String defaultContainerFactoryBeanName = DEFAULT_REACTIVE_PULSAR_LISTENER_CONTAINER_FACTORY_BEAN_NAME;
+	private final String defaultContainerFactoryBeanName = DEFAULT_REACTIVE_PULSAR_LISTENER_CONTAINER_FACTORY_BEAN_NAME;
 
 	private final PulsarListenerEndpointRegistrar registrar = new PulsarListenerEndpointRegistrar(
 			ReactivePulsarListenerContainerFactory.class);
@@ -150,7 +150,7 @@ public class ReactivePulsarListenerAnnotationBeanPostProcessor<V> extends Abstra
 			Map<Method, Set<ReactivePulsarListener>> annotatedMethods = MethodIntrospector.selectMethods(targetClass,
 					(MethodIntrospector.MetadataLookup<Set<ReactivePulsarListener>>) method -> {
 						Set<ReactivePulsarListener> listenerMethods = findListenerAnnotations(method);
-						return (!listenerMethods.isEmpty() ? listenerMethods : null);
+						return !listenerMethods.isEmpty() ? listenerMethods : null;
 					});
 			if (annotatedMethods.isEmpty()) {
 				this.nonAnnotatedClasses.add(bean.getClass());
