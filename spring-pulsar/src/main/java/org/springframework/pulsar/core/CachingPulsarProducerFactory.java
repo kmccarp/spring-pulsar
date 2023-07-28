@@ -94,7 +94,7 @@ public class CachingPulsarProducerFactory<T> extends DefaultPulsarProducerFactor
 		var producerCacheKey = new ProducerCacheKey<>(schema, resolveTopicName,
 				encryptionKeys == null ? null : new HashSet<>(encryptionKeys), customizers);
 		return this.producerCache.getOrCreateIfAbsent(producerCacheKey,
-				(st) -> createCacheableProducer(st.schema, st.topic, st.encryptionKeys, customizers));
+				st -> createCacheableProducer(st.schema, st.topic, st.encryptionKeys, customizers));
 	}
 
 	private Producer<T> createCacheableProducer(Schema<T> schema, String topic,
@@ -102,7 +102,7 @@ public class CachingPulsarProducerFactory<T> extends DefaultPulsarProducerFactor
 		try {
 			var producer = super.doCreateProducer(schema, topic, encryptionKeys, customizers);
 			return new ProducerWithCloseCallback<>(producer,
-					(p) -> this.logger.trace(() -> "Client closed producer %s but will skip actual closing"
+					p -> this.logger.trace(() -> "Client closed producer %s but will skip actual closing"
 						.formatted(ProducerUtils.formatProducer(producer))));
 		}
 		catch (PulsarClientException ex) {

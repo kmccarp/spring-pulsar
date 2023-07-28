@@ -35,7 +35,7 @@ integrationTest {
 
 task downloadRabbitConnector {
 	onlyIf {
-		System.getProperty("downloadRabbitConnector") == "true"
+		"true".equals(System.getProperty("downloadRabbitConnector"))
 	}
 	doLast {
 		try {

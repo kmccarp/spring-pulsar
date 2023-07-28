@@ -61,7 +61,7 @@ public class DefaultPulsarProducerFactory<T> implements PulsarProducerFactory<T>
 	 * @param pulsarClient the client used to create the producers
 	 */
 	public DefaultPulsarProducerFactory(PulsarClient pulsarClient) {
-		this(pulsarClient, null, (pb) -> {
+		this(pulsarClient, null, pb -> {
 		}, new DefaultTopicResolver());
 	}
 
@@ -71,7 +71,7 @@ public class DefaultPulsarProducerFactory<T> implements PulsarProducerFactory<T>
 	 * @param defaultTopic the default topic to use for the producers
 	 */
 	public DefaultPulsarProducerFactory(PulsarClient pulsarClient, @Nullable String defaultTopic) {
-		this(pulsarClient, defaultTopic, (pb) -> {
+		this(pulsarClient, defaultTopic, pb -> {
 		}, new DefaultTopicResolver());
 	}
 
@@ -152,7 +152,7 @@ public class DefaultPulsarProducerFactory<T> implements PulsarProducerFactory<T>
 
 		// Apply any user-specified customizers (preserve the topic)
 		if (!CollectionUtils.isEmpty(customizers)) {
-			customizers.forEach((c) -> c.customize(producerBuilder));
+			customizers.forEach(c -> c.customize(producerBuilder));
 		}
 		producerBuilder.topic(resolvedTopic);
 

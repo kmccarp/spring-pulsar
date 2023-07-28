@@ -168,7 +168,7 @@ public class SpringPulsarBootApp {
 
 		@Bean
 		SchemaResolverCustomizer<DefaultSchemaResolver> schemaMappingsCustomizer() {
-			return (schemaResolver) -> {
+			return schemaResolver -> {
 				schemaResolver.addCustomSchemaMapping(Bar.class, Schema.JSON(Bar.class));
 				schemaResolver.addCustomSchemaMapping(Zaa.class, Schema.JSON(Zaa.class));
 			};

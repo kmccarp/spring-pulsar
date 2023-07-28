@@ -154,7 +154,7 @@ public class MethodReactivePulsarListenerEndpoint<V> extends AbstractReactivePul
 				|| !ObjectUtils.isEmpty(pulsarContainerProperties.getTopics());
 		if (!hasTopicInfo) {
 			topicResolver.resolveTopic(null, messageType.getRawClass(), () -> null)
-				.ifResolved((topic) -> pulsarContainerProperties.setTopics(Collections.singleton(topic)));
+				.ifResolved(topic -> pulsarContainerProperties.setTopics(Collections.singleton(topic)));
 		}
 
 		ReactiveMessageConsumerBuilderCustomizer<V> customizer1 = b -> b.deadLetterPolicy(this.deadLetterPolicy);

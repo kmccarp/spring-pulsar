@@ -65,9 +65,9 @@ public abstract class AbstractPulsarMessageToSpringMessageAdapter<V> {
 
 	private HandlerAdapter handlerMethod;
 
-	private boolean headerFound = false;
+	private boolean headerFound;
 
-	private boolean simpleExtraction = false;
+	private boolean simpleExtraction;
 
 	private boolean isPulsarMessageList;
 
@@ -81,7 +81,7 @@ public abstract class AbstractPulsarMessageToSpringMessageAdapter<V> {
 
 	private boolean converterSet;
 
-	private PulsarMessageConverter<V> messageConverter = new PulsarRecordMessageConverter<V>(
+	private PulsarMessageConverter<V> messageConverter = new PulsarRecordMessageConverter<>(
 			JsonPulsarHeaderMapper.builder().build());
 
 	private Type fallbackType = Object.class;

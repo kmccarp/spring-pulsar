@@ -359,7 +359,7 @@ class ConsumerAcknowledgmentTests implements PulsarTestContainerSupport {
 	}
 
 	private <T> ConsumerBuilderCustomizer<T> defaultConfig(String topicName, String subscriptionName) {
-		return (consumerBuilder) -> {
+		return consumerBuilder -> {
 			consumerBuilder.topic(topicName);
 			consumerBuilder.subscriptionName(subscriptionName);
 		};

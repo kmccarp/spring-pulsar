@@ -96,69 +96,69 @@ class PulsarTemplateTests implements PulsarTestContainerSupport {
 		return Stream.of(
 				// Simple send sync
 				arguments("simpleSendWithDefaultTopic",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template.send(message), true, message),
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template.send(message), true, message),
 				arguments("simpleSendWithTopic",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template.send("simpleSendWithTopic",
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template.send("simpleSendWithTopic",
 								message),
 						false, message),
 				arguments("simpleSendWithDefaultTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template.send(message, Schema.STRING),
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template.send(message, Schema.STRING),
 						true, message),
 				arguments("simpleSendWithTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template
 							.send("simpleSendWithTopicAndSchema", message, Schema.STRING),
 						false, message),
 				arguments("simpleSendNullWithTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template
 							.send("simpleSendNullWithTopicAndSchema", null, Schema.STRING),
 						false, null),
 
 				// Simple send async
 				arguments("simpleSendAsyncWithDefaultTopic",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template.sendAsync(message)
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template.sendAsync(message)
 							.get(3, TimeUnit.SECONDS),
 						true, message),
 				arguments("simpleSendAsyncWithTopic",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template
 							.sendAsync("simpleSendAsyncWithTopic", message)
 							.get(3, TimeUnit.SECONDS),
 						false, message),
 				arguments("simpleSendAsyncWithDefaultTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (
-								template) -> template.sendAsync(message, Schema.STRING).get(3, TimeUnit.SECONDS),
+						(ThrowingConsumer<PulsarTemplate<String>>) 
+								template -> template.sendAsync(message, Schema.STRING).get(3, TimeUnit.SECONDS),
 						true, message),
 				arguments("simpleSendAsyncWithTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template
 							.sendAsync("simpleSendAsyncWithTopicAndSchema", message, Schema.STRING)
 							.get(3, TimeUnit.SECONDS),
 						false, message),
 				arguments("simpleSendAsyncNullWithTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template
 							.sendAsync("simpleSendAsyncNullWithTopicAndSchema", null, Schema.STRING)
 							.get(3, TimeUnit.SECONDS),
 						false, null),
 
 				// Fluent send
 				arguments("fluentSendWithDefaultTopic",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template.newMessage(message).send(),
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template.newMessage(message).send(),
 						true, message),
 				arguments("fluentSendWithTopic",
-						(ThrowingConsumer<PulsarTemplate<String>>) (
-								template) -> template.newMessage(message).withTopic("fluentSendWithTopic").send(),
+						(ThrowingConsumer<PulsarTemplate<String>>) 
+								template -> template.newMessage(message).withTopic("fluentSendWithTopic").send(),
 						false, message),
 				arguments("fluentSendWithDefaultTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (
-								template) -> template.newMessage(message).withSchema(Schema.STRING).send(),
+						(ThrowingConsumer<PulsarTemplate<String>>) 
+								template -> template.newMessage(message).withSchema(Schema.STRING).send(),
 						true, message),
 				arguments("fluentSendNullWithTopicAndSchema",
-						(ThrowingConsumer<PulsarTemplate<String>>) (template) -> template.newMessage(null)
+						(ThrowingConsumer<PulsarTemplate<String>>) template -> template.newMessage(null)
 							.withSchema(Schema.STRING)
 							.withTopic("fluentSendNullWithTopicAndSchema")
 							.send(),
 						false, null),
 				arguments("fluentSendAsync",
-						(ThrowingConsumer<PulsarTemplate<String>>) (
-								template) -> template.newMessage(message).sendAsync().get(3, TimeUnit.SECONDS),
+						(ThrowingConsumer<PulsarTemplate<String>>) 
+								template -> template.newMessage(message).sendAsync().get(3, TimeUnit.SECONDS),
 						true, message)
 
 		);
@@ -166,8 +166,8 @@ class PulsarTemplateTests implements PulsarTestContainerSupport {
 
 	@Test
 	void sendMessageWithMessageCustomizer() throws Exception {
-		ThrowingConsumer<PulsarTemplate<String>> sendFunction = (template) -> template.newMessage("test-message")
-			.withMessageCustomizer((mb) -> mb.key("test-key"))
+		ThrowingConsumer<PulsarTemplate<String>> sendFunction = template -> template.newMessage("test-message")
+			.withMessageCustomizer(mb -> mb.key("test-key"))
 			.send();
 		Message<String> msg = sendAndConsume(sendFunction, "sendMessageWithMessageCustomizer", Schema.STRING,
 				"test-message", true);
@@ -176,8 +176,8 @@ class PulsarTemplateTests implements PulsarTestContainerSupport {
 
 	@Test
 	void sendMessageWithSenderCustomizer() throws Exception {
-		ThrowingConsumer<PulsarTemplate<String>> sendFunction = (template) -> template.newMessage("test-message")
-			.withProducerCustomizer((sb) -> sb.producerName("test-producer"))
+		ThrowingConsumer<PulsarTemplate<String>> sendFunction = template -> template.newMessage("test-message")
+			.withProducerCustomizer(sb -> sb.producerName("test-producer"))
 			.send();
 		Message<String> msg = sendAndConsume(sendFunction, "sendMessageWithSenderCustomizer", Schema.STRING,
 				"test-message", true);
@@ -228,7 +228,7 @@ class PulsarTemplateTests implements PulsarTestContainerSupport {
 		PulsarTemplate<Foo> pulsarTemplate = new PulsarTemplate<>(producerFactory, Collections.emptyList(),
 				new DefaultSchemaResolver(), topicResolver, false);
 		Foo foo = new Foo("Foo-" + UUID.randomUUID(), "Bar-" + UUID.randomUUID());
-		ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = (template) -> template.send(foo, Schema.JSON(Foo.class));
+		ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = template -> template.send(foo, Schema.JSON(Foo.class));
 		sendAndConsume(pulsarTemplate, sendFunction, topic, Schema.JSON(Foo.class), foo);
 	}
 
@@ -269,7 +269,7 @@ class PulsarTemplateTests implements PulsarTestContainerSupport {
 		void withSpecifiedSchema() throws Exception {
 			String topic = "ptt-specificSchema-topic";
 			Foo foo = new Foo("Foo-" + UUID.randomUUID(), "Bar-" + UUID.randomUUID());
-			ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = (template) -> template.send(foo,
+			ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = template -> template.send(foo,
 					Schema.AVRO(Foo.class));
 			sendAndConsume(sendFunction, topic, Schema.AVRO(Foo.class), foo, true);
 		}
@@ -278,7 +278,7 @@ class PulsarTemplateTests implements PulsarTestContainerSupport {
 		void withSchemaInferredByMessageType() throws Exception {
 			String topic = "ptt-nospecificSchema-topic";
 			Foo foo = new Foo("Foo-" + UUID.randomUUID(), "Bar-" + UUID.randomUUID());
-			ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = (template) -> template.send(foo);
+			ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = template -> template.send(foo);
 			sendAndConsume(sendFunction, topic, Schema.JSON(Foo.class), foo, true);
 		}
 
@@ -292,7 +292,7 @@ class PulsarTemplateTests implements PulsarTestContainerSupport {
 			PulsarTemplate<Foo> pulsarTemplate = new PulsarTemplate<>(producerFactory, Collections.emptyList(),
 					schemaResolver, new DefaultTopicResolver(), false);
 			Foo foo = new Foo("Foo-" + UUID.randomUUID(), "Bar-" + UUID.randomUUID());
-			ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = (template) -> template.newMessage(foo).send();
+			ThrowingConsumer<PulsarTemplate<Foo>> sendFunction = template -> template.newMessage(foo).send();
 			sendAndConsume(pulsarTemplate, sendFunction, topic, Schema.JSON(Foo.class), foo);
 		}
 

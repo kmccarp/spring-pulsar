@@ -873,7 +873,7 @@ public class ReactivePulsarListenerTests implements PulsarTestContainerSupport {
 					consumerCustomizer = "subscriptionInitialPositionEarliest", concurrency = "100",
 					useKeyOrderedProcessing = "true")
 			Mono<Void> listen2(String message) {
-				if (message.equals("first")) {
+				if ("first".equals(message)) {
 					// if message processing is not ordered by keys, "first" will be added
 					// to the queue after "second"
 					return Mono.delay(Duration.ofMillis(1000)).doOnNext(m -> queue.add(message)).then();
