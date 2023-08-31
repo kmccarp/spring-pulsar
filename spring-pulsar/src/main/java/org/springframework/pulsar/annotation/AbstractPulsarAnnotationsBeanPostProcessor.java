@@ -84,7 +84,7 @@ public class AbstractPulsarAnnotationsBeanPostProcessor
 
 	protected final ListenerScope listenerScope = new ListenerScope();
 
-	private Charset charset = StandardCharsets.UTF_8;
+	private final Charset charset = StandardCharsets.UTF_8;
 
 	protected final PulsarHandlerMethodFactoryAdapter messageHandlerMethodFactory = new PulsarHandlerMethodFactoryAdapter();
 
@@ -202,7 +202,7 @@ public class AbstractPulsarAnnotationsBeanPostProcessor
 						+ "but not found in any interface(s) for bean JDK proxy. Either "
 						+ "pull the method up to an interface or switch to subclass (CGLIB) "
 						+ "proxies by setting proxy-target-class/proxyTargetClass "
-						+ "attribute to 'true'".formatted(method.getName(), method.getDeclaringClass().getSimpleName()),
+						+ "attribute to 'true'".formatted(method.getName()),
 						ex);
 			}
 		}

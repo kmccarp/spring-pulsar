@@ -53,7 +53,7 @@ class PulsarFunctionsTests {
 
 	private static final String NAMESPACE = "namespace1";
 
-	private PulsarAdmin pulsarAdmin = mock(PulsarAdmin.class, Mockito.RETURNS_DEEP_STUBS);
+	private final PulsarAdmin pulsarAdmin = mock(PulsarAdmin.class, Mockito.RETURNS_DEEP_STUBS);
 
 	@Nested
 	class PulsarFunctionApi {

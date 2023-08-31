@@ -70,7 +70,7 @@ public class SpringPulsarBinderSampleApp {
 
 	@Bean
 	public Function<Time, EnhancedTime> timeProcessor() {
-		return (time) -> {
+		return time -> {
 			EnhancedTime enhancedTime = new EnhancedTime(time, "5150");
 			this.logger.info("PROCESSOR: {} --> {}", time, enhancedTime);
 			return enhancedTime;
@@ -79,12 +79,12 @@ public class SpringPulsarBinderSampleApp {
 
 	@Bean
 	public Consumer<EnhancedTime> timeLogger() {
-		return (time) -> this.logger.info("SINK:      {}", time);
+		return time -> this.logger.info("SINK:      {}", time);
 	}
 
 	@Bean
 	public Consumer<EnhancedTime> timeLoggerToDlt() {
-		return (time) -> {
+		return time -> {
 			this.logger.info("SINK (TO DLT EVENTUALLY):      {}", time);
 			throw new RuntimeException("fail " + time);
 		};

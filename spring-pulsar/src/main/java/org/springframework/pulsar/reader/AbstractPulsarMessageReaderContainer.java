@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  * @param <T> reader data type.
  * @author Soby Chacko
  */
-public non-sealed abstract class AbstractPulsarMessageReaderContainer<T> extends AbstractPulsarMessageContainer
+public abstract non-sealed class AbstractPulsarMessageReaderContainer<T> extends AbstractPulsarMessageContainer
 		implements PulsarMessageReaderContainer {
 
 	private final PulsarReaderFactory<T> pulsarReaderFactory;

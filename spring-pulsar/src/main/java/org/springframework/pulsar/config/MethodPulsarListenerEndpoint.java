@@ -160,7 +160,7 @@ public class MethodPulsarListenerEndpoint<V> extends AbstractPulsarListenerEndpo
 				|| StringUtils.hasText(pulsarContainerProperties.getTopicsPattern());
 		if (!hasTopicInfo) {
 			topicResolver.resolveTopic(null, messageType.getRawClass(), () -> null)
-				.ifResolved((topic) -> pulsarContainerProperties.setTopics(Set.of(topic)));
+				.ifResolved(topic -> pulsarContainerProperties.setTopics(Set.of(topic)));
 		}
 
 		container.setNegativeAckRedeliveryBackoff(this.negativeAckRedeliveryBackoff);

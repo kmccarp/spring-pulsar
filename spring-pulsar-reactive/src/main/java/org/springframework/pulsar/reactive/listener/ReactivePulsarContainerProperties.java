@@ -57,9 +57,9 @@ public class ReactivePulsarContainerProperties<T> {
 
 	private Duration handlingTimeout = Duration.ofMinutes(2);
 
-	private int concurrency = 0;
+	private int concurrency;
 
-	private boolean useKeyOrderedProcessing = false;
+	private boolean useKeyOrderedProcessing;
 
 	public ReactivePulsarMessageHandler getMessageHandler() {
 		return this.messageHandler;

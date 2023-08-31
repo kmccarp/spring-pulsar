@@ -35,7 +35,7 @@ import org.mockito.InOrder;
  */
 public class PulsarAdministrationTests {
 
-	private PulsarAdminBuilder adminBuilder = mock(PulsarAdminBuilder.class);
+	private final PulsarAdminBuilder adminBuilder = mock(PulsarAdminBuilder.class);
 
 	@Nested
 	class CustomizerTests {

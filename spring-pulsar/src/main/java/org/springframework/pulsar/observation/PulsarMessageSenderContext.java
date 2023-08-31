@@ -43,8 +43,7 @@ public final class PulsarMessageSenderContext extends SenderContext<MessageHolde
 
 	public static PulsarMessageSenderContext newContext(String topic, String beanName) {
 		MessageHolder messageHolder = new MessageHolder();
-		PulsarMessageSenderContext senderContext = new PulsarMessageSenderContext(messageHolder, topic, beanName);
-		return senderContext;
+		return new PulsarMessageSenderContext(messageHolder, topic, beanName);
 	}
 
 	public Map<String, String> properties() {
