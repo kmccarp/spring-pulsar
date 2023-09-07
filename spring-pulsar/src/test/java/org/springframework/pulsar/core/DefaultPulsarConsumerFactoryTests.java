@@ -111,7 +111,7 @@ class DefaultPulsarConsumerFactoryTests implements PulsarTestContainerSupport {
 		@Test
 		void withSchemaAndTopicsAndCustomizerWithSubscription() throws PulsarClientException {
 			try (var consumer = consumerFactory.createConsumer(SCHEMA, Collections.singletonList("topic0"), null, null,
-					List.of((cb) -> cb.subscriptionName("topic0-sub")))) {
+					List.of(cb -> cb.subscriptionName("topic0-sub")))) {
 				assertThat(consumer.getTopic()).isEqualTo("topic0");
 				assertThat(consumer.getSubscription()).isEqualTo("topic0-sub");
 			}
@@ -121,7 +121,7 @@ class DefaultPulsarConsumerFactoryTests implements PulsarTestContainerSupport {
 		void withMetadataProperties() throws PulsarClientException {
 			var metadataProperties = Collections.singletonMap("foo", "bar");
 			try (var consumer = consumerFactory.createConsumer(SCHEMA, Collections.singletonList("topic0"),
-					"topic0-sub", metadataProperties, List.of((cb) -> cb.subscriptionName("topic0-sub")))) {
+					"topic0-sub", metadataProperties, List.of(cb -> cb.subscriptionName("topic0-sub")))) {
 				assertThat(consumer).hasFieldOrPropertyWithValue("metadata", metadataProperties);
 			}
 		}
@@ -129,7 +129,7 @@ class DefaultPulsarConsumerFactoryTests implements PulsarTestContainerSupport {
 		@Test
 		void withSingleCustomizerApi() throws PulsarClientException {
 			try (var consumer = consumerFactory.createConsumer(SCHEMA, Collections.singletonList("topic0"),
-					"topic0-sub", (cb) -> cb.consumerName("foo-consumer"))) {
+					"topic0-sub", cb -> cb.consumerName("foo-consumer"))) {
 				assertThat(consumer.getConsumerName()).isEqualTo("foo-consumer");
 			}
 		}
@@ -137,7 +137,7 @@ class DefaultPulsarConsumerFactoryTests implements PulsarTestContainerSupport {
 		@Test
 		void customizesAreAppliedLast() throws PulsarClientException {
 			try (var consumer = consumerFactory.createConsumer(SCHEMA, Collections.singletonList("topic0"),
-					"topic0-sub", null, List.of((cb) -> cb.subscriptionName("topic0-sub2")))) {
+					"topic0-sub", null, List.of(cb -> cb.subscriptionName("topic0-sub2")))) {
 				assertThat(consumer.getSubscription()).isEqualTo("topic0-sub2");
 			}
 		}
@@ -170,7 +170,7 @@ class DefaultPulsarConsumerFactoryTests implements PulsarTestContainerSupport {
 
 		@BeforeEach
 		void createConsumerFactory() {
-			consumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient, List.of((consumerBuilder) -> {
+			consumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient, List.of(consumerBuilder -> {
 				consumerBuilder.topic(defaultTopic);
 				consumerBuilder.subscriptionName(defaultSubscription);
 				consumerBuilder.properties(defaultMetadataProperties);
@@ -223,7 +223,7 @@ class DefaultPulsarConsumerFactoryTests implements PulsarTestContainerSupport {
 		@Test
 		void customizesAreAppliedLast() throws PulsarClientException {
 			try (var consumer = consumerFactory.createConsumer(SCHEMA, null, null, null,
-					List.of((cb) -> cb.subscriptionName("topic0-sub2")))) {
+					List.of(cb -> cb.subscriptionName("topic0-sub2")))) {
 				assertThat(consumer.getSubscription()).isEqualTo("topic0-sub2");
 			}
 		}

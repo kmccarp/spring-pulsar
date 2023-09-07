@@ -87,7 +87,7 @@ public final class Proto {
 			if (extensionRegistry == null) {
 				throw new java.lang.NullPointerException();
 			}
-			int mutable_bitField0_ = 0;
+			int mutableBitField0 = 0;
 			com.google.protobuf.UnknownFieldSet.Builder unknownFields = com.google.protobuf.UnknownFieldSet
 				.newBuilder();
 			try {
@@ -133,7 +133,7 @@ public final class Proto {
 			}
 		}
 
-		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+		public static com.google.protobuf.Descriptors.Descriptor getDescriptor() {
 			return org.springframework.pulsar.listener.Proto.internal_static_proto_Person_descriptor;
 		}
 
@@ -156,7 +156,7 @@ public final class Proto {
 		 */
 		@java.lang.Override
 		public boolean hasId() {
-			return ((bitField0_ & 0x00000001) != 0);
+			return (bitField0_ & 0x00000001) != 0;
 		}
 
 		/**
@@ -178,7 +178,7 @@ public final class Proto {
 		 */
 		@java.lang.Override
 		public boolean hasName() {
-			return ((bitField0_ & 0x00000002) != 0);
+			return (bitField0_ & 0x00000002) != 0;
 		}
 
 		/**
@@ -221,10 +221,12 @@ public final class Proto {
 		@java.lang.Override
 		public final boolean isInitialized() {
 			byte isInitialized = memoizedIsInitialized;
-			if (isInitialized == 1)
+			if (isInitialized == 1) {
 				return true;
-			if (isInitialized == 0)
+			}
+			if (isInitialized == 0) {
 				return false;
+			}
 
 			memoizedIsInitialized = 1;
 			return true;
@@ -232,10 +234,10 @@ public final class Proto {
 
 		@java.lang.Override
 		public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
-			if (((bitField0_ & 0x00000001) != 0)) {
+			if ((bitField0_ & 0x00000001) != 0) {
 				output.writeInt32(1, id_);
 			}
-			if (((bitField0_ & 0x00000002) != 0)) {
+			if ((bitField0_ & 0x00000002) != 0) {
 				com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
 			}
 			unknownFields.writeTo(output);
@@ -244,14 +246,15 @@ public final class Proto {
 		@java.lang.Override
 		public int getSerializedSize() {
 			int size = memoizedSize;
-			if (size != -1)
+			if (size != -1) {
 				return size;
+			}
 
 			size = 0;
-			if (((bitField0_ & 0x00000001) != 0)) {
+			if ((bitField0_ & 0x00000001) != 0) {
 				size += com.google.protobuf.CodedOutputStream.computeInt32Size(1, id_);
 			}
-			if (((bitField0_ & 0x00000002) != 0)) {
+			if ((bitField0_ & 0x00000002) != 0) {
 				size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
 			}
 			size += unknownFields.getSerializedSize();
@@ -269,21 +272,23 @@ public final class Proto {
 			}
 			org.springframework.pulsar.listener.Proto.Person other = (org.springframework.pulsar.listener.Proto.Person) obj;
 
-			if (hasId() != other.hasId())
+			if (hasId() != other.hasId()) {
 				return false;
+			}
 			if (hasId()) {
-				if (getId() != other.getId())
+				if (getId() != other.getId()) {
 					return false;
+				}
 			}
-			if (hasName() != other.hasName())
+			if (hasName() != other.hasName()) {
 				return false;
+			}
 			if (hasName()) {
-				if (!getName().equals(other.getName()))
+				if (!getName().equals(other.getName())) {
 					return false;
+				}
 			}
-			if (!unknownFields.equals(other.unknownFields))
-				return false;
-			return true;
+			return unknownFields.equals(other.unknownFields);
 		}
 
 		@java.lang.Override
@@ -391,8 +396,7 @@ public final class Proto {
 
 		@java.lang.Override
 		protected Builder newBuilderForType(com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-			Builder builder = new Builder(parent);
-			return builder;
+			return new Builder(parent);
 		}
 
 		/**
@@ -402,7 +406,7 @@ public final class Proto {
 				// @@protoc_insertion_point(builder_implements:proto.Person)
 				org.springframework.pulsar.listener.Proto.PersonOrBuilder {
 
-			public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+			public static com.google.protobuf.Descriptors.Descriptor getDescriptor() {
 				return org.springframework.pulsar.listener.Proto.internal_static_proto_Person_descriptor;
 			}
 
@@ -425,17 +429,15 @@ public final class Proto {
 			}
 
 			private void maybeForceBuilderInitialization() {
-				if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
-				}
 			}
 
 			@java.lang.Override
 			public Builder clear() {
 				super.clear();
 				id_ = 0;
-				bitField0_ = (bitField0_ & ~0x00000001);
+				bitField0_ = bitField0_ & ~0x00000001;
 				name_ = "";
-				bitField0_ = (bitField0_ & ~0x00000002);
+				bitField0_ = bitField0_ & ~0x00000002;
 				return this;
 			}
 
@@ -462,17 +464,17 @@ public final class Proto {
 			public org.springframework.pulsar.listener.Proto.Person buildPartial() {
 				org.springframework.pulsar.listener.Proto.Person result = new org.springframework.pulsar.listener.Proto.Person(
 						this);
-				int from_bitField0_ = bitField0_;
-				int to_bitField0_ = 0;
-				if (((from_bitField0_ & 0x00000001) != 0)) {
+				int fromBitField0 = bitField0_;
+				int toBitField0 = 0;
+				if ((fromBitField0 & 0x00000001) != 0) {
 					result.id_ = id_;
-					to_bitField0_ |= 0x00000001;
+					toBitField0 |= 0x00000001;
 				}
-				if (((from_bitField0_ & 0x00000002) != 0)) {
-					to_bitField0_ |= 0x00000002;
+				if ((fromBitField0 & 0x00000002) != 0) {
+					toBitField0 |= 0x00000002;
 				}
 				result.name_ = name_;
-				result.bitField0_ = to_bitField0_;
+				result.bitField0_ = toBitField0;
 				onBuilt();
 				return result;
 			}
@@ -521,8 +523,9 @@ public final class Proto {
 			}
 
 			public Builder mergeFrom(org.springframework.pulsar.listener.Proto.Person other) {
-				if (other == org.springframework.pulsar.listener.Proto.Person.getDefaultInstance())
+				if (other == org.springframework.pulsar.listener.Proto.Person.getDefaultInstance()) {
 					return this;
+				}
 				if (other.hasId()) {
 					setId(other.getId());
 				}
@@ -570,7 +573,7 @@ public final class Proto {
 			 */
 			@java.lang.Override
 			public boolean hasId() {
-				return ((bitField0_ & 0x00000001) != 0);
+				return (bitField0_ & 0x00000001) != 0;
 			}
 
 			/**
@@ -599,7 +602,7 @@ public final class Proto {
 			 * @return This builder for chaining.
 			 */
 			public Builder clearId() {
-				bitField0_ = (bitField0_ & ~0x00000001);
+				bitField0_ = bitField0_ & ~0x00000001;
 				id_ = 0;
 				onChanged();
 				return this;
@@ -612,7 +615,7 @@ public final class Proto {
 			 * @return Whether the name field is set.
 			 */
 			public boolean hasName() {
-				return ((bitField0_ & 0x00000002) != 0);
+				return (bitField0_ & 0x00000002) != 0;
 			}
 
 			/**
@@ -669,7 +672,7 @@ public final class Proto {
 			 * @return This builder for chaining.
 			 */
 			public Builder clearName() {
-				bitField0_ = (bitField0_ & ~0x00000002);
+				bitField0_ = bitField0_ & ~0x00000002;
 				name_ = getDefaultInstance().getName();
 				onChanged();
 				return this;
@@ -715,7 +718,7 @@ public final class Proto {
 			return DEFAULT_INSTANCE;
 		}
 
-		private static final com.google.protobuf.Parser<Person> PARSER = new com.google.protobuf.AbstractParser<Person>() {
+		private static final com.google.protobuf.Parser<Person> PARSER = new com.google.protobuf.AbstractParser<>() {
 			@java.lang.Override
 			public Person parsePartialFrom(com.google.protobuf.CodedInputStream input,
 					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -748,7 +751,7 @@ public final class Proto {
 		return descriptor;
 	}
 
-	private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
+	private static final com.google.protobuf.Descriptors.FileDescriptor descriptor;
 	static {
 		java.lang.String[] descriptorData = { "\n\014person.proto\022\005proto\"<\n\006Person\022\017\n\002id\030\001 "
 				+ "\001(\005H\000\210\001\001\022\021\n\004name\030\002 \001(\tH\001\210\001\001B\005\n\003_idB\007\n\005_n"

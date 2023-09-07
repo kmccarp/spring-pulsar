@@ -101,7 +101,7 @@ abstract class PulsarProducerFactoryTests implements PulsarTestContainerSupport 
 	}
 
 	private PulsarProducerFactory<String> newProducerFactoryWithDefaultKeys(Set<String> defaultKeys) {
-		return producerFactory(pulsarClient, null, List.of((pb) -> defaultKeys.forEach(pb::addEncryptionKey)));
+		return producerFactory(pulsarClient, null, List.of(pb -> defaultKeys.forEach(pb::addEncryptionKey)));
 	}
 
 	protected PulsarProducerFactory<String> newProducerFactoryWithDefaultConfigCustomizers(
@@ -220,7 +220,7 @@ abstract class PulsarProducerFactoryTests implements PulsarTestContainerSupport 
 
 		@Test
 		void customizerThatSetsTopicHasNoEffect() throws PulsarClientException {
-			try (var producer = newProducerFactory().createProducer(schema, "topic1", (b) -> b.topic("topic-5150"))) {
+			try (var producer = newProducerFactory().createProducer(schema, "topic1", b -> b.topic("topic-5150"))) {
 				assertThatProducerHasTopic(producer, "topic1");
 			}
 		}

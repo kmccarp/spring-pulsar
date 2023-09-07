@@ -74,7 +74,7 @@ class DefaultReactivePulsarMessageListenerContainerTests implements PulsarTestCo
 		CountDownLatch latch = new CountDownLatch(1);
 		ReactivePulsarContainerProperties<String> pulsarContainerProperties = new ReactivePulsarContainerProperties<>();
 		pulsarContainerProperties.setMessageHandler(
-				(ReactivePulsarOneByOneMessageHandler<String>) (msg) -> Mono.fromRunnable(latch::countDown));
+				(ReactivePulsarOneByOneMessageHandler<String>) msg -> Mono.fromRunnable(latch::countDown));
 		pulsarContainerProperties.setSchema(Schema.STRING);
 		DefaultReactivePulsarMessageListenerContainer<String> container = new DefaultReactivePulsarMessageListenerContainer<>(
 				pulsarConsumerFactory, pulsarContainerProperties);
@@ -107,7 +107,7 @@ class DefaultReactivePulsarMessageListenerContainerTests implements PulsarTestCo
 		CountDownLatch latch = new CountDownLatch(5);
 		ReactivePulsarContainerProperties<String> pulsarContainerProperties = new ReactivePulsarContainerProperties<>();
 		pulsarContainerProperties
-			.setMessageHandler((ReactivePulsarStreamingHandler<String>) (msg) -> msg.doOnNext((m) -> latch.countDown())
+			.setMessageHandler((ReactivePulsarStreamingHandler<String>) msg -> msg.doOnNext(m -> latch.countDown())
 				.map(MessageResult::acknowledge));
 		pulsarContainerProperties.setSchema(Schema.STRING);
 		DefaultReactivePulsarMessageListenerContainer<String> container = new DefaultReactivePulsarMessageListenerContainer<>(
@@ -144,7 +144,7 @@ class DefaultReactivePulsarMessageListenerContainerTests implements PulsarTestCo
 		CountDownLatch latch = new CountDownLatch(1);
 		ReactivePulsarContainerProperties<String> pulsarContainerProperties = new ReactivePulsarContainerProperties<>();
 		pulsarContainerProperties.setMessageHandler(
-				(ReactivePulsarOneByOneMessageHandler<String>) (msg) -> Mono.fromRunnable(latch::countDown));
+				(ReactivePulsarOneByOneMessageHandler<String>) msg -> Mono.fromRunnable(latch::countDown));
 		pulsarContainerProperties.setSchema(Schema.STRING);
 		pulsarContainerProperties.setTopics(List.of(topic));
 		pulsarContainerProperties.setSubscriptionName(subscriptionName);
@@ -187,7 +187,7 @@ class DefaultReactivePulsarMessageListenerContainerTests implements PulsarTestCo
 
 		ReactivePulsarContainerProperties<String> pulsarContainerProperties = new ReactivePulsarContainerProperties<>();
 		pulsarContainerProperties
-			.setMessageHandler((ReactivePulsarOneByOneMessageHandler<String>) (msg) -> Mono.empty());
+			.setMessageHandler((ReactivePulsarOneByOneMessageHandler<String>) msg -> Mono.empty());
 		pulsarContainerProperties.setSchema(Schema.STRING);
 		DefaultReactivePulsarMessageListenerContainer<String> container = new DefaultReactivePulsarMessageListenerContainer<>(
 				pulsarConsumerFactory, pulsarContainerProperties);
@@ -221,7 +221,7 @@ class DefaultReactivePulsarMessageListenerContainerTests implements PulsarTestCo
 
 		ReactivePulsarContainerProperties<String> pulsarContainerProperties = new ReactivePulsarContainerProperties<>();
 		pulsarContainerProperties
-			.setMessageHandler((ReactivePulsarOneByOneMessageHandler<String>) (msg) -> Mono.empty());
+			.setMessageHandler((ReactivePulsarOneByOneMessageHandler<String>) msg -> Mono.empty());
 		pulsarContainerProperties.setSchema(Schema.STRING);
 		pulsarContainerProperties.setSubscriptionType(SubscriptionType.Shared);
 		DefaultReactivePulsarMessageListenerContainer<String> container = new DefaultReactivePulsarMessageListenerContainer<>(
@@ -261,7 +261,7 @@ class DefaultReactivePulsarMessageListenerContainerTests implements PulsarTestCo
 		CountDownLatch latch = new CountDownLatch(1);
 		ReactivePulsarContainerProperties<String> pulsarContainerProperties = new ReactivePulsarContainerProperties<>();
 		pulsarContainerProperties.setMessageHandler(
-				(ReactivePulsarOneByOneMessageHandler<String>) (msg) -> Mono.fromRunnable(latch::countDown));
+				(ReactivePulsarOneByOneMessageHandler<String>) msg -> Mono.fromRunnable(latch::countDown));
 		pulsarContainerProperties.setSchema(Schema.STRING);
 		pulsarContainerProperties.setTopicsPattern("persistent://public/default/drpmlct-017-.*");
 		pulsarContainerProperties.setSubscriptionName(subscriptionName);
@@ -304,8 +304,8 @@ class DefaultReactivePulsarMessageListenerContainerTests implements PulsarTestCo
 		CountDownLatch latch = new CountDownLatch(6);
 		ReactivePulsarContainerProperties<String> pulsarContainerProperties = new ReactivePulsarContainerProperties<>();
 		pulsarContainerProperties
-			.setMessageHandler((ReactivePulsarStreamingHandler<String>) (msg) -> msg.doOnNext((m) -> latch.countDown())
-				.map((m) -> m.getValue().endsWith("4") ? MessageResult.negativeAcknowledge(m)
+			.setMessageHandler((ReactivePulsarStreamingHandler<String>) msg -> msg.doOnNext(m -> latch.countDown())
+				.map(m -> m.getValue().endsWith("4") ? MessageResult.negativeAcknowledge(m)
 						: MessageResult.acknowledge(m)));
 		pulsarContainerProperties.setSchema(Schema.STRING);
 		pulsarContainerProperties.setSubscriptionType(SubscriptionType.Shared);

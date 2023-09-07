@@ -209,7 +209,7 @@ class PulsarFunctionAdministrationTests {
 		@Test
 		void createAdminClientFails() throws PulsarClientException {
 			when(springPulsarAdmin.createAdminClient()).thenThrow(new PulsarClientException("NOPE"));
-			assertThatThrownBy(() -> functionAdmin.createOrUpdateUserDefinedFunctions())
+			assertThatThrownBy(functionAdmin::createOrUpdateUserDefinedFunctions)
 					.isInstanceOf(PulsarException.class)
 					.hasMessageContaining("Unable to create/update functions - could not create PulsarAdmin: NOPE");
 		}
@@ -222,7 +222,7 @@ class PulsarFunctionAdministrationTests {
 				PulsarAdminException ex = new PulsarAdminException("BOOM");
 				when(function1.functionExists(pulsarAdmin)).thenThrow(ex);
 				PulsarFunctionException thrown = catchThrowableOfType(
-						() -> functionAdmin.createOrUpdateUserDefinedFunctions(), PulsarFunctionException.class);
+						functionAdmin::createOrUpdateUserDefinedFunctions, PulsarFunctionException.class);
 				assertThat(thrown.getFailures()).containsExactly(entry(function1, ex));
 				verify(function1, never()).create(pulsarAdmin);
 				verify(function1, never()).update(pulsarAdmin);
@@ -235,7 +235,7 @@ class PulsarFunctionAdministrationTests {
 				PulsarAdminException ex = new PulsarAdminException("BOOM");
 				when(sink1.functionExists(pulsarAdmin)).thenThrow(ex);
 				PulsarFunctionException thrown = catchThrowableOfType(
-						() -> functionAdmin.createOrUpdateUserDefinedFunctions(), PulsarFunctionException.class);
+						functionAdmin::createOrUpdateUserDefinedFunctions, PulsarFunctionException.class);
 				assertThat(thrown.getFailures()).containsExactly(entry(sink1, ex));
 				verify(function1).create(pulsarAdmin);
 				verify(sink1, never()).create(pulsarAdmin);
@@ -249,7 +249,7 @@ class PulsarFunctionAdministrationTests {
 				PulsarAdminException ex = new PulsarAdminException("BOOM");
 				when(source1.functionExists(pulsarAdmin)).thenThrow(ex);
 				PulsarFunctionException thrown = catchThrowableOfType(
-						() -> functionAdmin.createOrUpdateUserDefinedFunctions(), PulsarFunctionException.class);
+						functionAdmin::createOrUpdateUserDefinedFunctions, PulsarFunctionException.class);
 				assertThat(thrown.getFailures()).containsExactly(entry(source1, ex));
 				verify(function1).create(pulsarAdmin);
 				verify(sink1).create(pulsarAdmin);
@@ -276,7 +276,7 @@ class PulsarFunctionAdministrationTests {
 				PulsarAdminException ex = new PulsarAdminException("BOOM");
 				when(function1.functionExists(pulsarAdmin)).thenThrow(ex);
 				PulsarFunctionException thrown = catchThrowableOfType(
-						() -> functionAdmin.createOrUpdateUserDefinedFunctions(), PulsarFunctionException.class);
+						functionAdmin::createOrUpdateUserDefinedFunctions, PulsarFunctionException.class);
 				assertThat(thrown.getFailures()).containsExactly(entry(function1, ex));
 				verify(function1, never()).create(pulsarAdmin);
 				verify(function1, never()).update(pulsarAdmin);
@@ -290,7 +290,7 @@ class PulsarFunctionAdministrationTests {
 				PulsarAdminException ex = new PulsarAdminException("BOOM");
 				when(sink1.functionExists(pulsarAdmin)).thenThrow(ex);
 				PulsarFunctionException thrown = catchThrowableOfType(
-						() -> functionAdmin.createOrUpdateUserDefinedFunctions(), PulsarFunctionException.class);
+						functionAdmin::createOrUpdateUserDefinedFunctions, PulsarFunctionException.class);
 				assertThat(thrown.getFailures()).containsExactly(entry(sink1, ex));
 				verify(function1).create(pulsarAdmin);
 				verify(sink1, never()).create(pulsarAdmin);
@@ -304,7 +304,7 @@ class PulsarFunctionAdministrationTests {
 				PulsarAdminException ex = new PulsarAdminException("BOOM");
 				when(source1.functionExists(pulsarAdmin)).thenThrow(ex);
 				PulsarFunctionException thrown = catchThrowableOfType(
-						() -> functionAdmin.createOrUpdateUserDefinedFunctions(), PulsarFunctionException.class);
+						functionAdmin::createOrUpdateUserDefinedFunctions, PulsarFunctionException.class);
 				assertThat(thrown.getFailures()).containsExactly(entry(source1, ex));
 				verify(function1).create(pulsarAdmin);
 				verify(sink1).create(pulsarAdmin);
@@ -322,7 +322,7 @@ class PulsarFunctionAdministrationTests {
 				when(sink1.functionExists(pulsarAdmin)).thenThrow(ex2);
 				when(source1.functionExists(pulsarAdmin)).thenThrow(ex3);
 				PulsarFunctionException thrown = catchThrowableOfType(
-						() -> functionAdmin.createOrUpdateUserDefinedFunctions(), PulsarFunctionException.class);
+						functionAdmin::createOrUpdateUserDefinedFunctions, PulsarFunctionException.class);
 				assertThat(thrown.getFailures()).containsExactly(entry(function1, ex1), entry(sink1, ex2),
 						entry(source1, ex3));
 				verify(function1, never()).create(pulsarAdmin);
@@ -351,7 +351,7 @@ class PulsarFunctionAdministrationTests {
 			void createAdminClientFails() throws Exception {
 				beanFactory.addBean("function1", function1);
 				when(springPulsarAdmin.createAdminClient()).thenThrow(new PulsarClientException("NOPE"));
-				String output = tapSystemErrAndOutNormalized(() -> functionAdmin.createOrUpdateUserDefinedFunctions());
+				String output = tapSystemErrAndOutNormalized(functionAdmin::createOrUpdateUserDefinedFunctions);
 				assertThat(output).contains("Unable to create/update functions - could not create PulsarAdmin: NOPE");
 			}
 
@@ -359,7 +359,7 @@ class PulsarFunctionAdministrationTests {
 			void processedFunctionFails() throws Exception {
 				beanFactory.addBean("function1", function1);
 				when(function1.functionExists(pulsarAdmin)).thenThrow(new PulsarAdminException("BOOM"));
-				String output = tapSystemErrAndOutNormalized(() -> functionAdmin.createOrUpdateUserDefinedFunctions());
+				String output = tapSystemErrAndOutNormalized(functionAdmin::createOrUpdateUserDefinedFunctions);
 				assertThat(output).contains("Encountered 1 error(s) creating/updating functions:",
 						"PulsarAdminException: BOOM");
 			}
@@ -451,7 +451,7 @@ class PulsarFunctionAdministrationTests {
 		@Test
 		void createAdminClientFails() throws PulsarClientException {
 			when(springPulsarAdmin.createAdminClient()).thenThrow(new PulsarClientException("NOPE"));
-			assertThatThrownBy(() -> functionAdmin.enforceStopPolicyOnUserDefinedFunctions())
+			assertThatThrownBy(functionAdmin::enforceStopPolicyOnUserDefinedFunctions)
 					.isInstanceOf(PulsarException.class).hasMessageContaining(
 							"Unable to enforce stop policy on functions - could not create PulsarAdmin: NOPE");
 		}
@@ -461,7 +461,7 @@ class PulsarFunctionAdministrationTests {
 			PulsarException ex = new PulsarException("BOOM");
 			doThrow(ex).when(source1).stop(pulsarAdmin);
 			PulsarFunctionException thrown = catchThrowableOfType(
-					() -> functionAdmin.enforceStopPolicyOnUserDefinedFunctions(), PulsarFunctionException.class);
+					functionAdmin::enforceStopPolicyOnUserDefinedFunctions, PulsarFunctionException.class);
 			assertThat(thrown.getFailures()).containsExactly(entry(source1, ex));
 			verify(sink1).stop(pulsarAdmin);
 			verify(function1).stop(pulsarAdmin);
@@ -472,7 +472,7 @@ class PulsarFunctionAdministrationTests {
 			PulsarException ex = new PulsarException("BOOM");
 			doThrow(ex).when(sink1).stop(pulsarAdmin);
 			PulsarFunctionException thrown = catchThrowableOfType(
-					() -> functionAdmin.enforceStopPolicyOnUserDefinedFunctions(), PulsarFunctionException.class);
+					functionAdmin::enforceStopPolicyOnUserDefinedFunctions, PulsarFunctionException.class);
 			assertThat(thrown.getFailures()).containsExactly(entry(sink1, ex));
 			verify(source1).stop(pulsarAdmin);
 			verify(function1).stop(pulsarAdmin);
@@ -483,7 +483,7 @@ class PulsarFunctionAdministrationTests {
 			PulsarException ex = new PulsarException("BOOM");
 			doThrow(ex).when(function1).stop(pulsarAdmin);
 			PulsarFunctionException thrown = catchThrowableOfType(
-					() -> functionAdmin.enforceStopPolicyOnUserDefinedFunctions(), PulsarFunctionException.class);
+					functionAdmin::enforceStopPolicyOnUserDefinedFunctions, PulsarFunctionException.class);
 			assertThat(thrown.getFailures()).containsExactly(entry(function1, ex));
 			verify(source1).stop(pulsarAdmin);
 			verify(sink1).stop(pulsarAdmin);
@@ -498,7 +498,7 @@ class PulsarFunctionAdministrationTests {
 			doThrow(ex2).when(sink1).stop(pulsarAdmin);
 			doThrow(ex3).when(function1).stop(pulsarAdmin);
 			PulsarFunctionException thrown = catchThrowableOfType(
-					() -> functionAdmin.enforceStopPolicyOnUserDefinedFunctions(), PulsarFunctionException.class);
+					functionAdmin::enforceStopPolicyOnUserDefinedFunctions, PulsarFunctionException.class);
 			assertThat(thrown.getFailures()).containsExactly(entry(source1, ex1), entry(sink1, ex2),
 					entry(function1, ex3));
 		}
@@ -519,7 +519,7 @@ class PulsarFunctionAdministrationTests {
 				functionAdmin.getProcessedFunctions().add(function1);
 				when(springPulsarAdmin.createAdminClient()).thenThrow(new PulsarClientException("NOPE"));
 				String output = tapSystemErrAndOutNormalized(
-						() -> functionAdmin.enforceStopPolicyOnUserDefinedFunctions());
+						functionAdmin::enforceStopPolicyOnUserDefinedFunctions);
 				assertThat(output)
 					.contains("Unable to enforce stop policy on functions - could not create PulsarAdmin: NOPE");
 			}
@@ -529,7 +529,7 @@ class PulsarFunctionAdministrationTests {
 				functionAdmin.getProcessedFunctions().add(function1);
 				doThrow(new PulsarException("BOOM")).when(function1).stop(pulsarAdmin);
 				String output = tapSystemErrAndOutNormalized(
-						() -> functionAdmin.enforceStopPolicyOnUserDefinedFunctions());
+						functionAdmin::enforceStopPolicyOnUserDefinedFunctions);
 				assertThat(output).contains("Encountered 1 error(s) enforcing stop policy on functions:",
 						"PulsarException: BOOM");
 			}

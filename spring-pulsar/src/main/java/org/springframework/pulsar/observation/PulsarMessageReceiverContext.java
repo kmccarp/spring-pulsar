@@ -32,7 +32,7 @@ public class PulsarMessageReceiverContext extends ReceiverContext<Message<?>> {
 	private final Message<?> message;
 
 	public PulsarMessageReceiverContext(Message<?> message, String listenerId) {
-		super((carrier, key) -> carrier.getProperty(key));
+		super(Message::getProperty);
 		setCarrier(message);
 		this.message = message;
 		this.listenerId = listenerId;

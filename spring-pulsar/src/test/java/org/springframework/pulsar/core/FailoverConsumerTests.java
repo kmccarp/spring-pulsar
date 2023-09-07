@@ -55,7 +55,7 @@ class FailoverConsumerTests implements PulsarTestContainerSupport {
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<String> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("my-part-topic-1");
 					consumerBuilder.subscriptionName("my-part-subscription-1");
 				}));
@@ -86,7 +86,7 @@ class FailoverConsumerTests implements PulsarTestContainerSupport {
 		container3.start();
 
 		DefaultPulsarProducerFactory<String> pulsarProducerFactory = new DefaultPulsarProducerFactory<>(pulsarClient,
-				"my-part-topic-1", List.of((pb) -> pb.messageRoutingMode(MessageRoutingMode.CustomPartition)));
+				"my-part-topic-1", List.of(pb -> pb.messageRoutingMode(MessageRoutingMode.CustomPartition)));
 		PulsarTemplate<String> pulsarTemplate = new PulsarTemplate<>(pulsarProducerFactory);
 
 		pulsarTemplate.newMessage("hello john doe")

@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Soby Chacko
  * @author Alexander Preuß
  */
-public non-sealed abstract class AbstractPulsarMessageListenerContainer<T> extends AbstractPulsarMessageContainer
+public abstract non-sealed class AbstractPulsarMessageListenerContainer<T> extends AbstractPulsarMessageContainer
 		implements PulsarMessageListenerContainer {
 
 	private final PulsarConsumerFactory<T> pulsarConsumerFactory;

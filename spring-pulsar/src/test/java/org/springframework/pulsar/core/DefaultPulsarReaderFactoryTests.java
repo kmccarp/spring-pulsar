@@ -135,7 +135,7 @@ public class DefaultPulsarReaderFactoryTests implements PulsarTestContainerSuppo
 
 		@Test
 		void useFactoryDefaults() throws Exception {
-			pulsarReaderFactory = new DefaultPulsarReaderFactory<>(pulsarClient, List.of((readerBuilder) -> {
+			pulsarReaderFactory = new DefaultPulsarReaderFactory<>(pulsarClient, List.of(readerBuilder -> {
 				readerBuilder.topic("basic-pulsar-reader-topic");
 				readerBuilder.startMessageId(MessageId.earliest);
 			}));
@@ -154,7 +154,7 @@ public class DefaultPulsarReaderFactoryTests implements PulsarTestContainerSuppo
 
 		@Test
 		void overrideFactoryDefaults() throws Exception {
-			pulsarReaderFactory = new DefaultPulsarReaderFactory<>(pulsarClient, List.of((readerBuilder) -> {
+			pulsarReaderFactory = new DefaultPulsarReaderFactory<>(pulsarClient, List.of(readerBuilder -> {
 				readerBuilder.topic("foo-topic");
 				readerBuilder.startMessageId(MessageId.latest);
 			}));
@@ -176,7 +176,7 @@ public class DefaultPulsarReaderFactoryTests implements PulsarTestContainerSuppo
 
 		@Test
 		void customizersAreAppliedLast() throws Exception {
-			ReaderBuilderCustomizer<String> customizer = (readerBuilder) -> readerBuilder
+			ReaderBuilderCustomizer<String> customizer = readerBuilder -> readerBuilder
 				.topic("basic-pulsar-reader-topic");
 			// The following code expects the above topic will override the passed in
 			// 'foo-topic'

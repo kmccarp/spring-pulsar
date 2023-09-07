@@ -40,7 +40,7 @@ class DefaultPulsarClientFactoryTests {
 	@Test
 	void constructWithCustomizer() throws PulsarClientException {
 		var clientFactory = new DefaultPulsarClientFactory(
-				(clientBuilder) -> clientBuilder.serviceUrl("pulsar://localhost:5150"));
+				clientBuilder -> clientBuilder.serviceUrl("pulsar://localhost:5150"));
 		assertThat(clientFactory.createClient()).hasFieldOrPropertyWithValue("conf.serviceUrl",
 				"pulsar://localhost:5150");
 	}
@@ -54,7 +54,7 @@ class DefaultPulsarClientFactoryTests {
 
 	@Test
 	void customizerThrowsException() {
-		var clientFactory = new DefaultPulsarClientFactory((clientBuilder) -> {
+		var clientFactory = new DefaultPulsarClientFactory(clientBuilder -> {
 			throw new RuntimeException("Who turned out the lights?");
 		});
 		assertThatRuntimeException().isThrownBy(clientFactory::createClient).withMessage("Who turned out the lights?");
