@@ -82,7 +82,7 @@ public abstract class AbstractPulsarHeaderMapper<ToPulsarHeadersContextType, ToS
 	public AbstractPulsarHeaderMapper(List<String> inboundPatterns, List<String> outboundPatterns) {
 		Objects.requireNonNull(inboundPatterns, "inboundPatterns must be specified");
 		Objects.requireNonNull(outboundPatterns, "outboundPatterns must be specified");
-		inboundPatterns.forEach((p) -> this.inboundMatchers.add(PatternMatch.fromPatternString(p)));
+		inboundPatterns.forEach(p -> this.inboundMatchers.add(PatternMatch.fromPatternString(p)));
 		// @formatter:off
 		this.outboundMatchers.add(new NeverMatch(
 				PulsarHeaders.KEY,
@@ -108,7 +108,7 @@ public abstract class AbstractPulsarHeaderMapper<ToPulsarHeadersContextType, ToS
 			this.outboundMatchers.add(PatternMatch.fromPatternString("*"));
 		}
 		else {
-			outboundPatterns.forEach((p) -> this.outboundMatchers.add(PatternMatch.fromPatternString(p)));
+			outboundPatterns.forEach(p -> this.outboundMatchers.add(PatternMatch.fromPatternString(p)));
 			this.outboundMatchers.add(EXCLUDE_PATTERN_ID);
 			this.outboundMatchers.add(EXCLUDE_PATTERN_TIMESTAMP);
 		}

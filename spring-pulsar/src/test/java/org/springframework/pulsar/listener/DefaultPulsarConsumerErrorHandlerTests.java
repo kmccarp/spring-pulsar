@@ -58,7 +58,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<String> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-1");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-1");
 				}));
@@ -108,7 +108,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<String> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-2");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-2");
 				}));
@@ -155,7 +155,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<Integer> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-3");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-3");
 				}));
@@ -213,7 +213,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<Integer> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-4");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-4");
 				}));
@@ -285,7 +285,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<Integer> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-5");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-5");
 				}));
@@ -355,7 +355,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<Integer> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-6");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-6");
 				}));
@@ -425,7 +425,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<Integer> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-7");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-7");
 				}));
@@ -493,7 +493,7 @@ public class DefaultPulsarConsumerErrorHandlerTests implements PulsarTestContain
 			.serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl())
 			.build();
 		DefaultPulsarConsumerFactory<Integer> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-				List.of((consumerBuilder) -> {
+				List.of(consumerBuilder -> {
 					consumerBuilder.topic("default-error-handler-tests-8");
 					consumerBuilder.subscriptionName("default-error-handler-tests-sub-8");
 				}));

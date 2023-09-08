@@ -359,7 +359,7 @@ class ConsumerAcknowledgmentTests implements PulsarTestContainerSupport {
 	}
 
 	private <T> List<ConsumerBuilderCustomizer<T>> defaultConfig(String topicName, String subscriptionName) {
-		return List.of((consumerBuilder) -> {
+		return List.of(consumerBuilder -> {
 			consumerBuilder.topic(topicName);
 			consumerBuilder.subscriptionName(subscriptionName);
 		});

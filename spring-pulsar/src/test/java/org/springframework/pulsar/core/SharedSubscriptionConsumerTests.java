@@ -57,7 +57,7 @@ public class SharedSubscriptionConsumerTests implements PulsarTestContainerSuppo
 		try {
 			pulsarClient = PulsarClient.builder().serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl()).build();
 			DefaultPulsarConsumerFactory<String> pulsarConsumerFactory = new DefaultPulsarConsumerFactory<>(
-					pulsarClient, List.of((consumerBuilder) -> {
+					pulsarClient, List.of(consumerBuilder -> {
 						consumerBuilder.topic("shared-subscription-single-msg-test-topic");
 						consumerBuilder.subscriptionName("shared-subscription-single-msg-test-sub");
 					}));
@@ -93,9 +93,9 @@ public class SharedSubscriptionConsumerTests implements PulsarTestContainerSuppo
 			assertThat(latch3.await(10, TimeUnit.SECONDS)).isTrue();
 
 			// Make sure that each key group of messages was handled by single container
-			assertThat(messageCountByKey1.values()).allMatch((mesasgeCount) -> mesasgeCount == 1);
-			assertThat(messageCountByKey2.values()).allMatch((mesasgeCount) -> mesasgeCount == 1);
-			assertThat(messageCountByKey3.values()).allMatch((mesasgeCount) -> mesasgeCount == 1);
+			assertThat(messageCountByKey1.values()).allMatch(mesasgeCount -> mesasgeCount == 1);
+			assertThat(messageCountByKey2.values()).allMatch(mesasgeCount -> mesasgeCount == 1);
+			assertThat(messageCountByKey3.values()).allMatch(mesasgeCount -> mesasgeCount == 1);
 		}
 		finally {
 			safeStopContainer(container1);
@@ -114,7 +114,7 @@ public class SharedSubscriptionConsumerTests implements PulsarTestContainerSuppo
 		try {
 			pulsarClient = PulsarClient.builder().serviceUrl(PulsarTestContainerSupport.getPulsarBrokerUrl()).build();
 			DefaultPulsarConsumerFactory<String> consumerFactory = new DefaultPulsarConsumerFactory<>(pulsarClient,
-					List.of((consumerBuilder) -> {
+					List.of(consumerBuilder -> {
 						consumerBuilder.topic("key-shared-batch-disabled-topic");
 						consumerBuilder.subscriptionName("key-shared-batch-disabled-sub");
 					}));
@@ -134,7 +134,7 @@ public class SharedSubscriptionConsumerTests implements PulsarTestContainerSuppo
 			Thread.sleep(5_000);
 
 			DefaultPulsarProducerFactory<String> producerFactory = new DefaultPulsarProducerFactory<>(pulsarClient,
-					"key-shared-batch-disabled-topic", List.of((pb) -> pb.enableBatching(false)));
+					"key-shared-batch-disabled-topic", List.of(pb -> pb.enableBatching(false)));
 			PulsarTemplate<String> pulsarTemplate = new PulsarTemplate<>(producerFactory);
 			for (int i = 0; i < 10; i++) {
 				pulsarTemplate.newMessage("alice-" + i)
@@ -153,9 +153,9 @@ public class SharedSubscriptionConsumerTests implements PulsarTestContainerSuppo
 			assertThat(latch.await(10, TimeUnit.SECONDS)).isTrue();
 
 			// Make sure that each key group of messages was handled by single container
-			assertThat(messageCountByKey1.values()).allMatch((mesasgeCount) -> mesasgeCount == 10);
-			assertThat(messageCountByKey2.values()).allMatch((mesasgeCount) -> mesasgeCount == 10);
-			assertThat(messageCountByKey3.values()).allMatch((mesasgeCount) -> mesasgeCount == 10);
+			assertThat(messageCountByKey1.values()).allMatch(mesasgeCount -> mesasgeCount == 10);
+			assertThat(messageCountByKey2.values()).allMatch(mesasgeCount -> mesasgeCount == 10);
+			assertThat(messageCountByKey3.values()).allMatch(mesasgeCount -> mesasgeCount == 10);
 		}
 		finally {
 			safeStopContainer(container1);

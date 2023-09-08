@@ -143,7 +143,7 @@ public class DefaultPulsarProducerFactory<T> implements PulsarProducerFactory<T>
 
 		// Apply the default config customizer (preserve the topic)
 		if (!CollectionUtils.isEmpty(this.defaultConfigCustomizers)) {
-			this.defaultConfigCustomizers.forEach((customizer) -> customizer.customize(producerBuilder));
+			this.defaultConfigCustomizers.forEach(customizer -> customizer.customize(producerBuilder));
 		}
 		producerBuilder.topic(resolvedTopic);
 
@@ -152,7 +152,7 @@ public class DefaultPulsarProducerFactory<T> implements PulsarProducerFactory<T>
 
 		// Apply any user-specified customizers (preserve the topic)
 		if (!CollectionUtils.isEmpty(customizers)) {
-			customizers.forEach((c) -> c.customize(producerBuilder));
+			customizers.forEach(c -> c.customize(producerBuilder));
 		}
 		producerBuilder.topic(resolvedTopic);
 

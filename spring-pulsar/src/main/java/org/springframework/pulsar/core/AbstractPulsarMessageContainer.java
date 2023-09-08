@@ -47,7 +47,7 @@ public abstract class AbstractPulsarMessageContainer implements ApplicationEvent
 
 	protected boolean autoStartup = true;
 
-	protected volatile boolean running = false;
+	protected volatile boolean running;
 
 	@Override
 	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {

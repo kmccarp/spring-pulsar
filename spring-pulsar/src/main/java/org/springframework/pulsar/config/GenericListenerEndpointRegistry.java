@@ -199,7 +199,7 @@ public class GenericListenerEndpointRegistry<C extends MessageListenerContainer,
 	public void stop(Runnable callback) {
 		this.running = false;
 		Collection<C> listenerContainersToStop = getListenerContainers();
-		if (listenerContainersToStop.size() > 0) {
+		if (!listenerContainersToStop.isEmpty()) {
 			AggregatingCallback aggregatingCallback = new AggregatingCallback(listenerContainersToStop.size(),
 					callback);
 			for (C listenerContainer : listenerContainersToStop) {

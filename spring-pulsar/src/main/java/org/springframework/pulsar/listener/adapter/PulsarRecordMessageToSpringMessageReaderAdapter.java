@@ -52,12 +52,7 @@ public class PulsarRecordMessageToSpringMessageReaderAdapter<V> extends Abstract
 		if (logger.isDebugEnabled()) {
 			this.logger.debug("Processing [" + message + "]");
 		}
-		try {
-			invokeHandler(message, theRecord, reader);
-		}
-		catch (Exception e) {
-			throw e;
-		}
+		invokeHandler(message, theRecord, reader);
 	}
 
 }

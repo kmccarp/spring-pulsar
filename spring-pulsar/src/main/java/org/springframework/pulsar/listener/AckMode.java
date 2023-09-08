@@ -34,6 +34,6 @@ public enum AckMode {
 	/**
 	 * Manual ack mode.
 	 */
-	MANUAL;
+	MANUAL
 
 }

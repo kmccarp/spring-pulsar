@@ -55,12 +55,7 @@ public class PulsarRecordMessageToSpringMessageListenerAdapter<V> extends Abstra
 		if (logger.isDebugEnabled()) {
 			this.logger.debug("Processing [" + message + "]");
 		}
-		try {
-			invokeHandler(message, theRecord, consumer, acknowledgement);
-		}
-		catch (Exception e) {
-			throw e;
-		}
+		invokeHandler(message, theRecord, consumer, acknowledgement);
 	}
 
 }
