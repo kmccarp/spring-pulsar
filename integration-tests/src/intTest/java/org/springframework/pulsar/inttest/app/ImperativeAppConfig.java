@@ -44,7 +44,7 @@ class ImperativeAppConfig {
 
 	@Bean
 	ApplicationRunner sendMessagesToPulsarTopic(PulsarTemplate<SampleMessage> template) {
-		return (args) -> {
+		return args -> {
 			for (int i = 0; i < 10; i++) {
 				template.send(TOPIC, new SampleMessage(i, "message:" + i));
 				LOG.info("++++++PRODUCE IMPERATIVE:(" + i + ")------");
