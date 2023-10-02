@@ -29,7 +29,7 @@ class SampleJksBasedSslConfig {
 
 	@Bean
 	PulsarClientBuilderCustomizer pulsarClientJksSslCustomizer() {
-		return (clientBuilder) -> {
+		return clientBuilder -> {
 			clientBuilder.allowTlsInsecureConnection(false);
 			clientBuilder.enableTlsHostnameVerification(false);
 			clientBuilder.useKeyStoreTls(true);
@@ -44,7 +44,7 @@ class SampleJksBasedSslConfig {
 
 	@Bean
 	PulsarAdminBuilderCustomizer adminClientJksSslCustomizer() {
-		return (clientBuilder) -> {
+		return clientBuilder -> {
 			clientBuilder.allowTlsInsecureConnection(false);
 			clientBuilder.enableTlsHostnameVerification(false);
 			clientBuilder.useKeyStoreTls(true);

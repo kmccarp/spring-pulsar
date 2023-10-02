@@ -37,7 +37,7 @@ public interface SpringBootTestReactiveApp {
 	@Test
 	default void appProducesAndConsumesMessagesReactively(CapturedOutput output) {
 		List<String> expectedOutput = new ArrayList<>();
-		IntStream.range(0, 10).forEachOrdered((i) -> {
+		IntStream.range(0, 10).forEachOrdered(i -> {
 			expectedOutput.add("++++++PRODUCE REACTIVE:(" + i + ")------");
 			expectedOutput.add("++++++CONSUME REACTIVE:(" + i + ")------");
 		});
