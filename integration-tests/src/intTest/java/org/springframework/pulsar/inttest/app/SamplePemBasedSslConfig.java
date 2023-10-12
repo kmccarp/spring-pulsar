@@ -29,7 +29,7 @@ class SamplePemBasedSslConfig {
 
 	@Bean
 	PulsarClientBuilderCustomizer pulsarClientPemSslCustomizer() {
-		return (clientBuilder) -> {
+		return clientBuilder -> {
 			clientBuilder.allowTlsInsecureConnection(false);
 			clientBuilder.enableTlsHostnameVerification(false);
 			clientBuilder.tlsTrustCertsFilePath(this.resolvePath("classpath:ssl/pem/test-ca.crt"));
@@ -40,7 +40,7 @@ class SamplePemBasedSslConfig {
 
 	@Bean
 	PulsarAdminBuilderCustomizer adminClientPemSslCustomizer() {
-		return (clientBuilder) -> {
+		return clientBuilder -> {
 			clientBuilder.allowTlsInsecureConnection(false);
 			clientBuilder.enableTlsHostnameVerification(false);
 			clientBuilder.tlsTrustCertsFilePath(this.resolvePath("classpath:ssl/pem/test-ca.crt"));

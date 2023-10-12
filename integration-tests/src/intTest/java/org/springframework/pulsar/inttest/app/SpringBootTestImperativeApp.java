@@ -37,7 +37,7 @@ public interface SpringBootTestImperativeApp {
 	@Test
 	default void appProducesAndConsumesMessages(CapturedOutput output) {
 		List<String> expectedOutput = new ArrayList<>();
-		IntStream.range(0, 10).forEachOrdered((i) -> {
+		IntStream.range(0, 10).forEachOrdered(i -> {
 			expectedOutput.add("++++++PRODUCE IMPERATIVE:(" + i + ")------");
 			expectedOutput.add("++++++CONSUME IMPERATIVE:(" + i + ")------");
 		});

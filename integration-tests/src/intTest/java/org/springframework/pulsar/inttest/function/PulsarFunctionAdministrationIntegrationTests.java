@@ -134,7 +134,7 @@ class PulsarFunctionAdministrationIntegrationTests {
 			// Send messages to rabbit and wait for them to come through the rabbit source
 			RabbitTemplate rabbitTemplate = context.getBean(RabbitTemplate.class);
 			List<String> messages = LongStream.range(0, RECEIVED_MESSAGE_LATCH.getCount())
-				.mapToObj((i) -> "bar" + i)
+				.mapToObj(i -> "bar" + i)
 				.toList();
 			messages.forEach(msg -> rabbitTemplate.convertAndSend(RABBIT_QUEUE, msg));
 
@@ -198,7 +198,7 @@ class PulsarFunctionAdministrationIntegrationTests {
 			boolean available = Arrays.stream(connectors)
 				.map(Resource::getFilename)
 				.filter(Objects::nonNull)
-				.anyMatch((name) -> name.contains("pulsar-io-rabbitmq"));
+				.anyMatch(name -> name.contains("pulsar-io-rabbitmq"));
 			if (!available) {
 				logTestDisabledReason();
 				return false;
