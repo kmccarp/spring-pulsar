@@ -48,11 +48,11 @@ class ReactiveAppConfig {
 
 	@Bean
 	ApplicationRunner sendMessagesToPulsarTopic(ReactivePulsarTemplate<SampleMessage> template) {
-		return (args) -> Flux.range(0, 10)
-			.map((i) -> new SampleMessage(i, "message:" + i))
+		return args -> Flux.range(0, 10)
+			.map(i -> new SampleMessage(i, "message:" + i))
 			.map(MessageSpec::of)
-			.as((msgs) -> template.send(TOPIC, msgs))
-			.doOnNext((sendResult) -> LOG
+			.as(msgs -> template.send(TOPIC, msgs))
+			.doOnNext(sendResult -> LOG
 				.info("++++++PRODUCE REACTIVE:(" + sendResult.getMessageSpec().getValue().id() + ")------"))
 			.subscribe();
 	}
